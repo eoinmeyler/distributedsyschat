@@ -17,6 +17,32 @@ public class ChatClient {
     private PrintWriter out;
     private BufferedReader in;
 
+    public void showOnlineUsers (){
+        //Connect to LoginTracker
+        //Send details
+        Socket clientSocket;
+        PrintWriter out;
+        BufferedReader in;
+        String loginIP = "127.0.0.1";
+        int loginPort = 5000;
+
+
+        try {
+            clientSocket = new Socket(loginIP, loginPort);
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out.println("?");
+            String user;
+            while((user = in.readLine()) != null){
+                System.out.println(user);
+            }
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            LOG.debug("Error when initializing connection", e);
+        }
+    }
+
     public void startConnection(String ip, int port) {
         try {
             clientSocket = new Socket(ip, port);
@@ -60,7 +86,7 @@ public class ChatClient {
 
 
 
-    private static void chatClient(String userName, ChatClient chatClient) throws IOException {
+    private static void keyHandler(String userName, ChatClient chatClient) throws IOException {
         BufferedReader keyboardIn = new BufferedReader(new InputStreamReader(System.in));
         String kbInput = "";
         while (!kbInput.equals("bye")){
@@ -92,16 +118,21 @@ public class ChatClient {
     }
 
     public static void main(String[] args) throws IOException {
-        String userName = args[0];
-        String remoteIP = args[1];
-        int remotePort = Integer.parseInt(args[2]);
-        System.out.println(userName);
         ChatClient chatClient = new ChatClient();
-        chatClient.startConnection(remoteIP, remotePort);
-        System.out.println("Connected...");
-        new ResponseHandler(chatClient).start();
-        chatClient(userName, chatClient);
-        chatClient.stopConnection();
+        if(args.length == 0) {
+            chatClient.showOnlineUsers();
+        } else {
+            String userName = args[0];
+            String remoteIP = args[1];
+            int remotePort = Integer.parseInt(args[2]);
+            System.out.println(userName);
+            chatClient.startConnection(remoteIP, remotePort);
+            System.out.println("Connected...");
+            new ResponseHandler(chatClient).start();
+            keyHandler(userName, chatClient);
+            chatClient.stopConnection();
+        }
+
     }
 }
 
