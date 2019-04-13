@@ -61,9 +61,11 @@ public class ChatServer {
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 String inputLine;
 
-                new ChatBack(userName, out).start();
+                ChatBack chatBack = new ChatBack(userName, out);
+                chatBack.start();
 
-                while ((inputLine = in.readLine()) != null) {
+                while (!chatBack.isDone()) {
+                    inputLine = in.readLine();
                     System.out.println(inputLine);
                 }
 
@@ -83,6 +85,7 @@ public class ChatServer {
         private PrintWriter backChannel;
         private BufferedReader in;
         private String userName;
+        private boolean done = false;
 
         public ChatBack(String userName, PrintWriter backChannel) {
             this.backChannel = backChannel;
@@ -105,7 +108,7 @@ public class ChatServer {
             }
         }
 
-        private static void chatClient(String userName, PrintWriter printWriter) throws IOException {
+        private void chatClient(String userName, PrintWriter printWriter) throws IOException {
             BufferedReader keyboardIn = new BufferedReader(new InputStreamReader(System.in));
             String kbInput = "";
             while (!kbInput.equals("bye")){
@@ -117,6 +120,11 @@ public class ChatServer {
                     throw new IOException (e);
                 }
             }
+            done = true;
+        }
+
+        public boolean isDone() {
+            return done;
         }
     }
 

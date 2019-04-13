@@ -1,0 +1,9 @@
+To start Server:
+From JAR location in console, java -cp Projects.jar ChatServer UserA 5555
+parameters: local username, local port to listen on
+
+To start Client:
+From JAR location in console, java -cp Projects.jar ChatClient UserD 127.0.0.1 5555
+parameters: local username, remote IP address, remote port
+
+Change parameters as necessary
