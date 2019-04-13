@@ -1,5 +1,7 @@
 // Reference: https://www.baeldung.com/a-guide-to-java-sockets
 
+package com.c12340426.distsys;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -69,7 +71,7 @@ public class ChatServer {
                     System.out.println(inputLine);
                 }
 
-                //System.out.println("Closing connection with " + clientUser);
+                System.out.println("Closing connection with " + userName);
 
                 in.close();
                 out.close();

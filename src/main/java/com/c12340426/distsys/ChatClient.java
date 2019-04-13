@@ -1,4 +1,5 @@
 // Reference: https://www.baeldung.com/a-guide-to-java-sockets
+package com.c12340426.distsys;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,18 +58,7 @@ public class ChatClient {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        String userName = args[0];
-        String remoteIP = args[1];
-        int remotePort = Integer.parseInt(args[2]);
-        System.out.println(userName);
-        ChatClient chatClient = new ChatClient();
-        chatClient.startConnection(remoteIP, remotePort);
-        System.out.println("Connected...");
-        new ResponseHandler(chatClient).start();
-        chatClient(userName, chatClient);
-        chatClient.stopConnection();
-    }
+
 
     private static void chatClient(String userName, ChatClient chatClient) throws IOException {
         BufferedReader keyboardIn = new BufferedReader(new InputStreamReader(System.in));
@@ -100,4 +90,19 @@ public class ChatClient {
 
         }
     }
+
+    public static void main(String[] args) throws IOException {
+        String userName = args[0];
+        String remoteIP = args[1];
+        int remotePort = Integer.parseInt(args[2]);
+        System.out.println(userName);
+        ChatClient chatClient = new ChatClient();
+        chatClient.startConnection(remoteIP, remotePort);
+        System.out.println("Connected...");
+        new ResponseHandler(chatClient).start();
+        chatClient(userName, chatClient);
+        chatClient.stopConnection();
+    }
 }
+
+
