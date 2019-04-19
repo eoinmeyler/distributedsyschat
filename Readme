@@ -1,16 +1,18 @@
 First, start LoginTracker:
-From JAR location in console, java -cp Projects.jar com.c12340426.distsys.ChatServer
+From JAR location in console, java -cp Projects.jar com.c12340426.distsys.LoginTracker 5000
+Note the IP address of where you're running the server, it will be needed later
+Other components assume tracker is on port 5000
 
 To start Server:
-From JAR location in console, java -cp Projects.jar com.c12340426.distsys.ChatServer UserA 5555
-parameters: local username, local port to listen on
+From JAR location in console, java -cp Projects.jar com.c12340426.distsys.ChatServer UserA 127.0.0.1 5555
+parameters: local username, IP address of the LoginTracker, local port to listen on
 
 To see current online users:
-Run client with no parameters
-From JAR location in console, java -cp Projects.jar com.c12340426.distsys.ChatClient
+Run client with one parameter, the IP of the LoginTracker
+From JAR location in console, java -cp Projects.jar com.c12340426.distsys.ChatClient 127.0.0.1
 
 To start Client:
 From JAR location in console, java -cp Projects.jar com.c12340426.distsys.ChatClient UserB 127.0.0.1 5555
-parameters: local username, remote IP address, remote port
+parameters: local username, remote user's IP address, remote user's server port
 
 Change parameters as necessary

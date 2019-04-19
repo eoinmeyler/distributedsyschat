@@ -1,0 +1,18 @@
+Open 4 Command Prompt windows to the location of the JAR
+In the first one, enter: java -cp Projects.jar com.c12340426.distsys.LoginTracker 5000
+... to start the Login Tracker
+
+Then, in another enter: java -cp Projects.jar com.c12340426.distsys.ChatServer 127.0.0.1 UserA 127.0.0.1 5555
+... to start a Chat Server
+
+These will both be left on continuously
+
+Next, in the third window we enter: java -cp Projects.jar com.c12340426.distsys.ChatClient 127.0.0.1
+Running the client with only the tracker parameter returns a list of online users
+
+Lastly, enter: java -cp Projects.jar com.c12340426.distsys.ChatClient UserB 127.0.0.1 5555
+This will start up a be client that can chat with the server. Try entering a few messages, they should show up on the server
+Switch to the server window and reply to the client
+
+A server can only talk to one client at a time, so if you want to have simultaneous conversations with more than one client, start a server for each
+You can start as many servers as you want as long as they have unique IP and Port

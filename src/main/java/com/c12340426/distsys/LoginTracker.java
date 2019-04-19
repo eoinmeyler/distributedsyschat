@@ -96,53 +96,6 @@ public class LoginTracker {
         }
     }
 
-    private static class ChatBack extends Thread {
-        private PrintWriter backChannel;
-        private BufferedReader in;
-        private String userName;
-        private boolean done = false;
-
-        public ChatBack(String userName, PrintWriter backChannel) {
-            this.backChannel = backChannel;
-            this.userName = userName;
-        }
-
-        public void run() {
-            try {
-
-                //in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                //String inputLine;
-                //inputLine = in.readLine();
-                chatClient(userName, backChannel);
-
-                //in.close();
-
-
-            } catch (IOException e) {
-                LOG.debug(e.getMessage());
-            }
-        }
-
-        private void chatClient(String userName, PrintWriter printWriter) throws IOException {
-            BufferedReader keyboardIn = new BufferedReader(new InputStreamReader(System.in));
-            String kbInput = "";
-            while (!kbInput.equals("bye")){
-                try {
-                    kbInput = keyboardIn.readLine();
-                    printWriter.println(userName + ": " + kbInput);
-                } catch (IOException e) {
-                    System.out.println("Error reading from keyboard: " + e.getMessage());
-                    throw new IOException (e);
-                }
-            }
-            done = true;
-        }
-
-        public boolean isDone() {
-            return done;
-        }
-    }
-
     public static void main(String[] args) {
         LoginTracker server = new LoginTracker();
         int port = Integer.parseInt(args[0]);

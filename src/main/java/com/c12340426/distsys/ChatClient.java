@@ -17,13 +17,13 @@ public class ChatClient {
     private PrintWriter out;
     private BufferedReader in;
 
-    public void showOnlineUsers (){
+    public void showOnlineUsers(String trackerIP){
         //Connect to LoginTracker
         //Send details
         Socket clientSocket;
         PrintWriter out;
         BufferedReader in;
-        String loginIP = "127.0.0.1";
+        String loginIP = trackerIP;
         int loginPort = 5000;
 
 
@@ -119,8 +119,9 @@ public class ChatClient {
 
     public static void main(String[] args) throws IOException {
         ChatClient chatClient = new ChatClient();
-        if(args.length == 0) {
-            chatClient.showOnlineUsers();
+        if(args.length == 1) {
+            String trackerIP = args[0];
+            chatClient.showOnlineUsers(trackerIP);
         } else {
             String userName = args[0];
             String remoteIP = args[1];

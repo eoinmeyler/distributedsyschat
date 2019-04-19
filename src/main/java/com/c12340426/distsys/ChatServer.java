@@ -11,18 +11,20 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.sound.sampled.Port;
+
 public class ChatServer {
     private static final Logger LOG = LoggerFactory.getLogger(ChatServer.class);
 
     private ServerSocket serverSocket;
 
-    public void login (String name, String ip, int port){
+    public void login(String name, String ip, String loginTrackIP, int port){
         //Connect to LoginTracker
         //Send details
         Socket clientSocket;
         PrintWriter out;
         BufferedReader in;
-        String loginIP = "127.0.0.1";
+        String loginIP = loginTrackIP;
         int loginPort = 5000;
 
 
@@ -154,10 +156,11 @@ public class ChatServer {
 
     public static void main(String[] args) {
         ChatServer server = new ChatServer();
-        String name = args[0];
-        String ip = args[1];
-        int port = Integer.parseInt(args[2]);
-        server.login(name, ip, port);
+        String loginTrackIP = args[0];
+        String name = args[1];
+        String ip = args[2];
+        int port = Integer.parseInt(args[3]);
+        server.login(name, ip, loginTrackIP, port);
         server.start(name, port);
     }
 
